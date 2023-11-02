@@ -1,7 +1,7 @@
 import user from '../fixtures/user.json'
 /// <reference types="cypress"/>
 
-describe('Successful Registration&Authorization', () => {
+describe('Successful Registration&Authorization all fields', () => {
   it('Registration', () => {
     cy.visit('/');
     cy.get('#customer_menu_top').click();
