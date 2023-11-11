@@ -1,5 +1,16 @@
-import user from '../fixtures/user.json'
+import user from '../fixtures/user.json';
+import { faker } from '@faker-js/faker';
 /// <reference types="cypress"/>
+
+user.Email = faker.internet.email({ provider: 'fakeMail.com'});
+user.LoginName = faker.internet.userName();
+user.FirstName = faker.person.firstName();
+user.LastName = faker.person.lastName();
+user.Fax = faker.phone.number();
+user.Telephone = faker.phone.number();
+user.Company = faker.company.name();
+user.ZipCode = faker.location.zipCode('####');
+
 
 describe('Successful Registration&Authorization all fields', () => {
   it('Registration', () => {
@@ -28,7 +39,7 @@ describe('Successful Registration&Authorization all fields', () => {
     cy.get('#AccountFrm_agree').check().should('be.checked');
     cy.get('button[title="Continue"]').click();
     cy.contains(' Your Account Has Been Created!');
-    cy.get('div.menu_text').should('contain', 'Welcome back New_User_First_Name');
+    cy.get('.menu_text', {timeout:2000}).should('contain', user.FirstName);
    
   })
 
@@ -40,6 +51,6 @@ describe('Successful Registration&Authorization all fields', () => {
   cy.get('#loginFrm_loginname').type(user.LoginName);
   cy.get('#loginFrm_password').type(user.Password);
   cy.get('button[title="Login"]').click();
-  cy.get('span.subtext').should('contain', 'New_User_First_Name');
+  cy.get('.heading1', {timeout: 2000}).should('contain', user.FirstName);
   })
 })
