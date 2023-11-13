@@ -4,6 +4,7 @@ import homePage from '../support/pages/HomePage'
 import LoginPage from '../support/pages/LoginPage';
 import RegistrationPage from '../support/pages/RegistrationPage';
 import AccountPage from '../support/pages/AccountPage';
+import AuthorizationPage from '../support/pages/AuthorizationPage';
 
 
 //faker.js - a library that generates fake data
@@ -42,22 +43,26 @@ describe('Successful registration', ()=>{
         cy.log('Verify first name displayed on account page...')
 
         AccountPage.getFirstNameText().should('contain', user.FirstName);
+        AccountPage.getContinueButton().click();
 
 
     })
     it('Authorization', ()=>{
-        cy.log('Open website login page');
-        cy.visit('/index.php?rt=account/login');
+        homePage.visit();
+
+        cy.log('Opening authorization page...');
+
+        homePage.getHeaderAccountButton().click();
         
         cy.log('Check user is unathorized');
         cy.getCookie('customer').should('be.null');
     
         cy.log('Authorize user');
-        cy.get('#loginFrm_loginname').type(user.LoginName);
-        cy.get('#loginFrm_password').type(user.Password);
-        cy.get('button[type="submit"]').contains('Login').click();
-    
-        cy.get('.heading1', {timeout: 2000}).should('contain', user.FirstName);
+        AuthorizationPage.fillAuthorizationFields(user);
+        AuthorizationPage.getSubmitAuthorizationFormButton().contains('Login').click();
+
+        
+        AccountPage.getMyAccountText().should('contain', user.FirstName);
     })
 })
 
