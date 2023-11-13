@@ -1,26 +1,32 @@
 import user from '../fixtures/user.json'
 import { login } from '../support/helper.js'
 import { faker } from '@faker-js/faker'
+import homePage from '../support/pages/HomePage'
+import AccountPage from '../support/pages/AccountPage';
+import AuthorizationPage from '../support/pages/AuthorizationPage';
 
 it('Authorization', ()=>{
-    cy.log('Open website login page');
-    cy.visit('/index.php?rt=account/login');
+    homePage.visit();
+
+    cy.log('Opening authorization page...');
+
+    homePage.getHeaderAccountButton().click();
     
     cy.log('Check user is unathorized');
     cy.getCookie('customer').should('be.null');
 
     cy.log('Authorize user');
-    cy.get('#loginFrm_loginname').type(user.LoginName);
-    cy.get('#loginFrm_password').type(user.Password);
-    cy.get('button[type="submit"]').contains('Login').click();
+    AuthorizationPage.fillAuthorizationFields(user);
+    AuthorizationPage.getSubmitAuthorizationFormButton().contains('Login').click();
 
-    cy.get('.heading1', {timeout: 2000}).should('contain', user.FirstName);
+    
+    AccountPage.getMyAccountText().should('contain', user.FirstName);
 })
 
 // GO to support --> helper.js file
 // Also we have add  import './helper' to e2e.js file 
 
-it.only('Authorization with invalid loginName', ()=>{
+it('Authorization with invalid loginName', ()=>{
 
  user.LoginName = faker.animal.bear.name();    
  login(user);
