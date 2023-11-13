@@ -9,3 +9,18 @@ export function login(user){
 
     cy.get('.heading1', {timeout: 2000}).should('contain', user.FirstName);
 }
+
+
+export function findProduct(productName){ // curls to straight Shampoo
+    cy.get('body').then(body =>{
+    console.log
+     if(body.find(`[title="${productName}]`).length > 0){
+
+        cy.get(`[title="${productName}]`).click();
+     }
+     else{
+        cy.contains('.pagination a', '>').click();
+        findProduct(productName);
+     }
+    })
+}
