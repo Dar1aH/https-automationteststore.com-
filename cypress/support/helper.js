@@ -11,16 +11,17 @@ export function login(user){
 }
 
 
-export function findProduct(productName){ // curls to straight Shampoo
-    cy.get('body').then(body =>{
-    console.log
-     if(body.find(`[title="${productName}]`).length > 0){
+export function findProduct(productName) {
+    
+     // productName from the json file order.json
+    // Gucci Guilty
 
-        cy.get(`[title="${productName}]`).click();
-     }
-     else{
+    cy.get('body').then(body => {
+      if (body.find(`[title="${productName}"]`).length > 0) {
+        cy.get(`[title="${productName}"]`).click();
+      } else {
         cy.contains('.pagination a', '>').click();
         findProduct(productName);
-     }
-    })
-}
+      }
+    });
+  }

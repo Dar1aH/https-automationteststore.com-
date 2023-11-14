@@ -13,6 +13,12 @@ class OrderProduct extends BasePage{
     this.elements.CheckOutOptionsText = '.heading4';
     this.elements.GuestCheckoutRadioButton = '#accountFrm_accountguest';
     this.elements.ContinueButton = 'button[type="submit"][title="Continue"]';
+
+    this.elements.SearchKeywordsField = '#filter_keyword';
+    this.elements.ProductPageCart = '.productpagecart';
+    this.elements.CartCheckoutButton = '#cart_checkout1';
+    this.elements.CheckoutButton1 = '#checkout_btn';
+    this.elements.ContentPanel = '.contentpanel';
     }
 getShoppingItemIcon(){
     return cy.get(this.elements.ShoppingItemIcon)
@@ -47,6 +53,24 @@ getGuestCheckoutRadioButton(){
 }
 getContinueButton(){
     return cy.get(this.elements.ContinueButton)
+}
+
+getSearchKeywordsField(){
+    return cy.get(this.elements.SearchKeywordsField)
+}
+
+getProductPageCart(){
+    return cy.get(this.elements.ProductPageCart)
+}
+
+getCartCheckoutButton(){
+    return cy.get(this.elements.CartCheckoutButton)
+}
+getCheckoutButton1(){
+    return cy.get(this.elements.CheckoutButton1)
+}
+getContentPanel(){
+    return cy.get(this.elements.ContentPanel)
 }
 
 fillEstimateShippingTaxesFields(user){

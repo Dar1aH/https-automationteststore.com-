@@ -2,6 +2,9 @@ import homePage from '../support/pages/HomePage';
 import user from '../fixtures/user.json';
 import GuestForm from '../support/pages/GuestForm';
 import OrderProduct from '../support/pages/OrderProduct';
+import { login, findProduct } from '../support/helper'
+import { faker } from '@faker-js/faker'
+import orderData from '../fixtures/order.json'
 
 describe('Searching for a product', ()=> {
 
@@ -38,8 +41,20 @@ describe('Searching for a product', ()=> {
 
     })
 
-    it('Find a product & order it', ()=>{
-        homePage.visit();
-        
-    })   
+it('Order', () => {
+
+    login(user);
+
+    OrderProduct.getSearchKeywordsField().type('i')
+        .closest("form")
+        .submit();
+
+    findProduct(orderData.productName) //Gucci Guilty 
+
+    OrderProduct.getProductPageCart().click()
+    OrderProduct.getCartCheckoutButton().click()
+    OrderProduct.getCheckoutButton1().click()
+    OrderProduct.getContentPanel().should('contain', "Thank you for shopping with us!")
+
 })
+}) 
