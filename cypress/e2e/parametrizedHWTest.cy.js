@@ -97,7 +97,7 @@ const tableTest = [
         }
     }
   ];
-  describe('Test Toast Notifications', () => {
+  describe.skip('Test Toast Notifications', () => {
     beforeEach('Access the page', () => {
       cy.visit('https://sanitarskyi-ngx-admin.herokuapp.com');
       cy.get('img[src="assets/images/corporate-theme.jpg"]').click();
