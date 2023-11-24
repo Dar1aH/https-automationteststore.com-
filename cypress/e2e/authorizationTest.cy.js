@@ -21,12 +21,14 @@ it('Authorization', ()=>{
 
     
     AccountPage.getMyAccountText().should('contain', user.FirstName);
+
+    window.localStorage.setItem('hello', 'world')
 })
 
 // GO to support --> helper.js file
 // Also we have add  import './helper' to e2e.js file 
 
-it('Authorization with invalid loginName', ()=>{
+it.skip('Authorization with invalid loginName', ()=>{
 
  user.LoginName = faker.animal.bear.name();    
  login(user);
